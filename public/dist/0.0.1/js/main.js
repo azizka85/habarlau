@@ -1,0 +1,1 @@
+import{b as t}from"./chunk-FHE2ZOIQ.js";async function o(e){let a=`${e}-page`;return(await import(`./views/pages/${a}.js?time=${Date.now()}`))[t(a)]?.instance?.load?.(a)}var n=location.pathname.slice(1)||"home";await o(n);
