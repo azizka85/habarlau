@@ -26,7 +26,9 @@ async function build(version, dev) {
   
   console.log('client - ', clientResult);
 
-  const styles = sass.compile('./src/client/styles/main.scss');
+  const styles = sass.compile('./src/client/styles/main.scss', {
+    style: !dev ? 'compressed' : undefined
+  });
 
   const dirPath = `./public/dist/${version}/css`;
 

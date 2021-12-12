@@ -4,10 +4,11 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Habarlau - Application to make a business</title>
-  <script src="/dist/{{ data.version }}/js/main.js" type="module"></script>
+  <title>Habarlau - Application to make a business</title>  
+  <link rel="stylesheet" href="/dist/{{ data.version }}/css/main.css">
 </head>
 <body>
   {{> (lookup data 'content') data=data.contentData }}
+  <script src="/dist/{{ data.version }}/js/main.js" type="module"></script>
 </body>
 </html>
