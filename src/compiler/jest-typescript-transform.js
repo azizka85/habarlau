@@ -4,9 +4,15 @@ module.exports = {
   process(src, filename, config, options) {
     const result = transformSync(src, {
       format: 'cjs',
-      loader: 'ts'
+      loader: 'ts',
+      sourcemap: true,
+      sourcefile: filename,
+      sourcesContent: false
     });
 
-    return result.code;
+    return {
+      code: result.code,
+      map: result.map
+    };
   }
 };

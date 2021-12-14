@@ -1,8 +1,13 @@
 import '../declarations';
 
-import express from "express";
+import { 
+  PAGE_ROOT
+} from '../../globals';
 
-import defaultLayout from '../templates/layouts/default-layout';
+import express from 'express';
+
+import { getLayoutHandlers, renderPage, stringToArray } from '../helpers/layout-helpers';
+
 import homePage from '../templates/pages/home-page';
 
 import { version } from '../../../package.json';
@@ -11,21 +16,31 @@ const router = express.Router();
 
 router.get('', (req, res) => {
   try {
-    res.send(
-      defaultLayout({
-        data: {
+    let data: any = {
+      time: Date.now(),
+      PAGE_ROOT
+    };
+  
+    if(req.query.ajax && !req.query.init) {
+      res.send(data);
+    } else {             
+      const layouts = !req.query.ajax 
+        ? ['main-layout'] 
+        : stringToArray(req.query.layouts as string);
+  
+      const layoutHandlers = getLayoutHandlers(layouts);
+  
+      res.send(
+        renderPage(
           version,
-          content: 'home-page',
-          contentData: {
-            time: Date.now()
-          }
-        }
-      }, {
-        partials: {
-          'home-page': homePage
-        }
-      })
-    );
+          req,
+          'home-page',
+          homePage,
+          data,
+          layoutHandlers
+        )
+      );
+    }
   } finally {
     res.end();
   }

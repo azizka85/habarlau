@@ -1,4 +1,69 @@
+@import 'bootstrap/scss/functions';
+
+@import 'bootstrap/scss/variables';
+@import 'bootstrap/scss/mixins';
+@import 'bootstrap/scss/root';
+
+@import 'bootstrap/scss/utilities';
+@import "bootstrap/scss/reboot";
+@import 'bootstrap/scss/helpers/visually-hidden';
+
+@import 'bootstrap/scss/utilities/api';
+
+@import 'bootstrap/scss/buttons';
+@import 'bootstrap/scss/card';
+@import 'bootstrap/scss/spinners';
+
+@import 'bootstrap/scss/forms/labels';
+@import 'bootstrap/scss/forms/form-text';
+@import 'bootstrap/scss/forms/form-control';
+
+@import './loader/styles.scss';
+@import './splash/styles.scss';
+@import './app-bar/styles.scss';
+@import './drawer/styles.scss';
+@import './search/styles.scss';
+@import './list/styles.scss';
+
 html, body {
   height: 100vh;
   margin: 0;
+}
+
+[data-layout] {
+  display: flex;
+}
+
+[data-layout], [data-page] {
+  opacity: 1;
+  transition: opacity 250ms linear;
+
+  &.page--unmount {
+    opacity: 0;
+  }
+}
+
+.main-card {
+  max-width: 25rem;
+  margin: 0.5rem auto 0;
+}
+
+[data-button="scroll-top"] {
+  position: fixed;
+  bottom: 1rem;
+  right: 1rem;
+  border-radius: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 3rem;
+  height: 3rem;
+  padding: unset;
+  margin: unset;
+  transform: scale(1);
+  transition: transform 250ms linear;
+
+  &.btn-exited {
+    transform: scale(0);
+  }
 }

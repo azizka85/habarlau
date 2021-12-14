@@ -1,0 +1,28 @@
+@import 'bootstrap/scss/functions';
+
+@import 'bootstrap/scss/variables';
+
+// position
+$top: 0.625rem !default;
+
+// width
+$max-width: 45rem !default;
+
+// height
+$height: 2.125rem !default;
+
+// padding
+$padding: 0.25rem !default;
+
+// margin
+$margin-max: 9rem;
+$margin-min: 1.5rem;
+
+// radius
+$border-radius: 0.5rem !default;
+
+// color
+$surface-fill-color: $body-bg;
+
+// opacity
+$background-opacity: 0.3 !default;

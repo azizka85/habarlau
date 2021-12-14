@@ -1,0 +1,31 @@
+@use './variables';
+
+.list {
+  display: flex;
+  flex-direction: column;  
+  line-height: variables.$line-height;
+  margin: variables.$margin-vertical 0;
+
+  &-item {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;    
+    overflow: hidden;    
+    text-decoration: none;
+    color: tint-color(color-contrast($body-bg), 30%);
+    cursor: pointer;
+
+    &:hover {
+      background-color: rgba($primary, 0.15);
+    }
+
+    &-icon {
+      min-width: 1.5rem;
+      min-height: 1.5rem;
+      width: 1.5rem;
+      height: 1.5rem;
+      fill: tint-color(color-contrast($body-bg), 30%);
+      margin: 0 variables.$margin-horizontal;
+    }    
+  }
+}

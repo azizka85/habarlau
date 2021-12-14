@@ -1,1 +1,37 @@
-Sign in page, time: {{ data.time }}
+<div data-page="signin-page">
+  <div class="card main-card">
+    <div class="card-body">
+      <h5 class="card-title ">Sign In</h5>
+      <form method="post" class="mb-3">
+        <div class="mb-3">
+          <label for="email" class="form-label">Email*</label>
+          <input 
+            type="email" 
+            name="email" 
+            id="email" 
+            class="form-control" 
+            required
+          >
+        </div>
+        <div class="mb-3">
+          <label for="password" class="form-label">Password*</label>
+          <input 
+            type="password" 
+            name="password" 
+            id="password" 
+            class="form-control" 
+            required
+          >
+        </div>
+        <div style="text-align: right;" class="mb-3">
+          <a class="btn btn-light" href="{{ data.PAGE_ROOT }}sign-up">Sign Up</a>
+        </div>
+        <div style="text-align: right;">
+          <button type="submit" class="btn btn-primary">Sign In</button>
+          <a class="btn btn-secondary" href="{{ data.PAGE_ROOT }}">Cancel</a>
+        </div>
+      </form>
+      {{> auth-service-component data=data }}
+    </div>
+  </div>
+</div>

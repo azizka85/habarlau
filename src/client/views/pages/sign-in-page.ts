@@ -1,9 +1,13 @@
-import { toCamel } from '../../../utils/formatter';
+import { Page } from '../view';
 
-export class SignInPage {
-  protected static page: SignInPage;
+import { loadContent, mount, mountClientNavigation, unmount } from '../../helpers';
 
-  static get instance() {
+export class SignInPage implements Page {
+  protected static page: SignInPage | null = null;
+
+  protected node: HTMLElement | null = null;
+
+  static get instance(): SignInPage {
     if(!SignInPage.page) {
       SignInPage.page = new SignInPage();
     }
@@ -11,7 +15,39 @@ export class SignInPage {
     return SignInPage.page;
   }
 
-  load(pageName: string) {
-    console.log(SignInPage.name, 'loaded', pageName, toCamel(pageName));       
+  get elem(): HTMLElement | null {
+    return this.node;
+  }
+
+  async init(parent: HTMLElement | null, firstTime: boolean) {
+    let content = await loadContent(parent, firstTime, []);    
+
+    this.node = content.querySelector('[data-page="signin-page"]') || null;
+
+    mountClientNavigation(this.node);
+
+    const form = this.node?.querySelector('.main-card form');
+
+    form?.addEventListener('submit', event => {
+      event.preventDefault();
+
+      const data = new FormData(form as HTMLFormElement);
+
+      console.log('Form submited: ');          
+
+      for(let item of data.entries()) {
+        console.log(item[0] + ':', item[1]);          
+      }
+    });
+    
+    return content;
+  }
+
+  async mount() {
+    await mount(this.node);
+  }
+
+  async unmount() {
+    await unmount(this.node);
   }
 }

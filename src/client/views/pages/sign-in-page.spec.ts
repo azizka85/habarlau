@@ -2,8 +2,12 @@ import { SignInPage } from "./sign-in-page";
 
 describe('SignInPage test', () => {
   test('Should get single instance of SignInPage', () => {
-    expect(SignInPage.instance).toBeTruthy();
-    expect(SignInPage.instance).toBeInstanceOf(SignInPage);    
-    expect(SignInPage.instance).toBe(SignInPage['page']);
+    const instance = SignInPage.instance;
+
+    expect(instance).toBeTruthy();
+    expect(instance).toBeInstanceOf(SignInPage);
+    expect(instance).toBe(SignInPage.instance);
+
+    expect(instance['node']).toBeFalsy();
   });
 });

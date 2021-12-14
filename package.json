@@ -6,11 +6,12 @@
     "test": "jest",
     "build": "node build.mjs",
     "start": "node dist/main.js",
-    "dev": "nodemon --config nodemon.json serve.mjs"
+    "dev": "nodemon serve.mjs"
   },
   "author": "Aziz Kudaikulov <aziz.kudaikulov@gmail.com>",
   "license": "MIT",
   "devDependencies": {
+    "@azizka/router": "^1.0.0",
     "@types/express": "^4.17.13",
     "@types/jest": "^27.0.3",
     "@types/jsdom": "^16.2.13",

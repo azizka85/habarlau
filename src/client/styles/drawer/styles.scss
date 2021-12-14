@@ -1,0 +1,83 @@
+@use '../app-bar/variables' as app-bar-variables;
+@use '../variables' as global-variables;
+@use './variables';
+
+.drawer {
+  z-index: (app-bar-variables.$z-index + 2);  
+
+  background-color: $body-bg;
+  
+  position: fixed;
+  top: 0;
+  left: 0; 
+  width: 0;
+  border-color: $border-color;
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  box-sizing: border-box;
+  height: 100vh;
+  overflow: hidden;  
+  
+  transition: width 250ms linear;
+
+  &-open {
+    border-right-width: 1px;
+    border-right-style: solid;  
+    width: 100%;
+  }
+
+  &-content {    
+    height: 100vh;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }  
+
+  &-header {
+    height: app-bar-variables.$row-height;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+
+    &-icon {
+      width: 2rem;
+      height: 2rem;
+      fill: color-contrast($body-bg);
+      margin: 0 1rem;
+      transform: rotate(0deg);
+      transition: transform 250ms linear;
+
+      &-hide {
+        transform: rotate(180deg);
+      }
+    }
+  }
+}
+
+// laptop
+@media screen and (min-width: (global-variables.$breakpoint-sm + 1px)) {
+  .drawer {
+    z-index: variables.$z-index;
+    width: variables.$min-width;
+    border-right-width: 1px;
+    border-right-style: solid;  
+
+    &-hover:not(&-open) {
+      box-shadow: $box-shadow-lg;
+    }
+
+    &-open, &-hover {
+      width: variables.$width;
+    }
+
+    &-open ~ .main-content {
+      margin-left: variables.$width;
+    }
+  }
+
+  .main-content {
+    margin-left: variables.$min-width;
+  
+    transition: margin-left 250ms linear;
+  }
+}
