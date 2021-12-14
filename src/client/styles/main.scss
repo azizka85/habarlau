@@ -67,11 +67,3 @@ html, body {
     transform: scale(0);
   }
 }
-
-.test-form {
-  & button:focus {
-    & ~ input {
-      background-color: red;
-    }
-  }
-}
