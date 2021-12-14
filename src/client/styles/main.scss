@@ -67,3 +67,7 @@ html, body {
     transform: scale(0);
   }
 }
+
+.test-form:focus-within {
+  background-color: red;
+}
