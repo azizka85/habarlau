@@ -68,6 +68,10 @@ html, body {
   }
 }
 
-.test-form:focus-within {
-  background-color: red;
+.test-form {
+  & button:focus {
+    & ~ input {
+      background-color: red;
+    }
+  }
 }
