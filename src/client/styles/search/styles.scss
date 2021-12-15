@@ -59,7 +59,7 @@
     transition: max-height 200ms linear;
   }
 
-  &:focus-within {
+  &-focus {
     color: color-contrast(variables.$surface-fill-color);
     background-color: variables.$surface-fill-color;   
     box-shadow: $box-shadow-lg;
