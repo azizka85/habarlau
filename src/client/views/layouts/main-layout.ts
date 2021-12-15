@@ -25,7 +25,9 @@ export class MainLayout extends BaseLayout implements Page {
 
   protected list: HTMLElement | null = null;
 
+  protected searchPanel: HTMLElement | null = null;
   protected searchForm: HTMLFormElement | null = null;  
+  protected searchInput: HTMLInputElement | null = null;
 
   static get instance(): MainLayout {
     if(!MainLayout.layout) {
@@ -78,25 +80,25 @@ export class MainLayout extends BaseLayout implements Page {
         );
       }
 
-      const searchPanel = this.appBarElem?.querySelector('.search');
+      this.searchPanel = this.appBarElem?.querySelector('.search') || null;
 
-      this.searchForm = searchPanel?.querySelector('form') || null; 
+      this.searchForm = this.searchPanel?.querySelector('form') || null; 
 
-      const input = this.searchForm?.querySelector('.search-input') as HTMLInputElement;
+      this.searchInput = this.searchForm?.querySelector('.search-input') as HTMLInputElement;
 
-      input?.addEventListener('focus', () => {              
-        searchPanel?.classList.add('search-focus');
+      this.searchInput?.addEventListener('focus', () => {              
+        this.searchPanel?.classList.add('search-focus');
       });
 
       this.searchForm?.querySelector('.search-icon-right')?.addEventListener('click', () => {        
-        if(input) {
-          input.value = '';
-          input.focus();
+        if(this.searchInput) {
+          this.searchInput.value = '';
+          this.searchInput.focus();
         }
       });
 
       this.searchForm?.querySelector('.search-icon-left')?.addEventListener('click', () => {
-        searchPanel?.classList.remove('search-focus');
+        this.searchPanel?.classList.remove('search-focus');
       });
 
       this.searchForm?.addEventListener('submit', event => {

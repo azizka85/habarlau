@@ -28,6 +28,7 @@ describe('MainLayout test', () => {
 
     global.Event = (document.defaultView as Window & typeof globalThis).Event;
     global.MouseEvent = (document.defaultView as Window & typeof globalThis).MouseEvent;
+    global.FocusEvent = (document.defaultView as Window & typeof globalThis).FocusEvent;
     global.CustomEvent = (document.defaultView as Window & typeof globalThis).CustomEvent;
 
     window.router = new Router();
@@ -311,5 +312,20 @@ describe('MainLayout test', () => {
     instance['drawerElem']?.dispatchEvent(new MouseEvent('mouseleave'));
 
     expect(instance['drawerElem']?.classList.contains('drawer-hover')).toBeFalsy();
+
+    instance['searchInput']?.dispatchEvent(new FocusEvent('focus'));
+
+    expect(instance['searchPanel']?.classList.contains('search-focus')).toBeTruthy();
+
+    (instance['searchInput'] as HTMLInputElement).value = 'Hello World!';
+
+    instance['searchForm']?.querySelector('.search-icon-right')?.dispatchEvent(new MouseEvent('click'));
+
+    expect(instance['searchPanel']?.classList.contains('search-focus')).toBeTruthy();
+    expect(instance['searchInput']?.value).toBeFalsy();
+
+    instance['searchForm']?.querySelector('.search-icon-left')?.dispatchEvent(new MouseEvent('click'));
+
+    expect(instance['searchPanel']?.classList.contains('search-focus')).toBeFalsy();
   });
 });
