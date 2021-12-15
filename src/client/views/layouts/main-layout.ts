@@ -99,18 +99,16 @@ export class MainLayout extends BaseLayout implements Page {
 
       this.searchForm?.querySelector('.search-icon-left')?.addEventListener('click', () => {
         this.searchPanel?.classList.remove('search-focus');
+        this.searchInput?.blur();
       });
 
       this.searchForm?.addEventListener('submit', event => {
         event.preventDefault();
 
-        const data = new FormData(this.searchForm as HTMLFormElement);
+        console.log('Form submited:', this.searchInput?.value);          
 
-        console.log('Form submited: ');          
-
-        for(let item of data.entries()) {
-          console.log(item[0] + ':', item[1]);          
-        }
+        this.searchPanel?.classList.remove('search-focus');
+        this.searchInput?.blur();
       });
 
       let prevScroll = 0;

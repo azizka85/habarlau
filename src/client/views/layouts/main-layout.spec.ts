@@ -327,5 +327,13 @@ describe('MainLayout test', () => {
     instance['searchForm']?.querySelector('.search-icon-left')?.dispatchEvent(new MouseEvent('click'));
 
     expect(instance['searchPanel']?.classList.contains('search-focus')).toBeFalsy();
+
+    instance['searchInput']?.dispatchEvent(new FocusEvent('focus'));
+
+    expect(instance['searchPanel']?.classList.contains('search-focus')).toBeTruthy();
+
+    instance['searchForm']?.dispatchEvent(new Event('submit'));
+
+    expect(instance['searchPanel']?.classList.contains('search-focus')).toBeFalsy();
   });
 });
