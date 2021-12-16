@@ -46,6 +46,8 @@ async function build(version, dev) {
     }
   );
 
+  console.log('styles - compiled');
+
   fs.rmSync('./dist', {
     recursive: true,
     force: true

@@ -1,6 +1,6 @@
 module.exports = {
   transform: {
-    "\\.[jt]sx?$": "./src/compiler/jest-typescript-transform.js",
+    "\\.[jt]sx?$": "babel-jest",
     "\\.hbs$": "./src/compiler/jest-handlebars-transform.js"
   }
 }
