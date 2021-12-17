@@ -1,6 +1,20 @@
 import * as router from '@azizka/router';
 
-export interface Page {
+export interface Listener {
+  listen?(type: string, listener: EventListenerOrEventListenerObject): void;
+  doAction?(type: string, data: any): void;
+}
+
+export interface Component extends Listener {
+  init(page: Page, firstTime: boolean): Promise<void>;
+
+  mount?(): Promise<void>;
+  unmount?(): Promise<void>;
+
+  load?(lang: string, page: router.Page, firstLoad: boolean): Promise<void>;
+}
+
+export interface Page extends Listener {
   get elem(): HTMLElement | null;  
 
   init(parent: HTMLElement | null, firstTime: boolean): Promise<HTMLElement>;
@@ -8,12 +22,9 @@ export interface Page {
   mount?(): Promise<void>;
   unmount?(): Promise<void>;
 
-  load?(page: router.Page, firstLoad: boolean): Promise<void>;
-
-  listen?(type: string, listener: EventListenerOrEventListenerObject): void;
-  doAction?(type: string, data: any): void;
+  load?(lang: string , page: router.Page, firstLoad: boolean): Promise<void>;  
 }
 
-export interface Layout {
+export interface Layout extends Listener {
   replaceContent(content: Page): Promise<void>;
 }

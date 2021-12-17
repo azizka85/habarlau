@@ -1,11 +1,28 @@
+import * as router from '@azizka/router';
+
 import { Page } from '../view';
 
-import { loadContent, mount, mountClientNavigation, unmount } from '../../helpers';
+import { loadContent, mount, navigateHandler, unmount } from '../../helpers';
+
+import { AuthServiceComponent } from '../components/auth-service-component';
+
+import { DEFAULT_LANGUAGE } from '../../../globals';
 
 export class SignUpPage implements Page {
   protected static page: SignUpPage | null = null;
 
   protected node: HTMLElement | null = null;
+
+  protected titleElem: HTMLElement | null = null;
+
+  protected nameLabelElem: HTMLElement | null = null;
+  protected passwordLabelElem: HTMLElement | null = null;
+
+  protected signInBtn: HTMLElement | null = null;
+  protected signUpBtn: HTMLElement | null = null;
+  protected cancelBtn: HTMLElement | null = null;
+
+  protected authService: AuthServiceComponent | null = null;
 
   static get instance(): SignUpPage {
     if(!SignUpPage.page) {
@@ -24,8 +41,6 @@ export class SignUpPage implements Page {
 
     this.node = content.querySelector('[data-page="signup-page"]') || null;
 
-    mountClientNavigation(this.node);
-
     const form = this.node?.querySelector('.main-card form');
 
     form?.addEventListener('submit', event => {
@@ -40,6 +55,22 @@ export class SignUpPage implements Page {
       }
     });
 
+    this.titleElem = this.node?.querySelector('[data-title="main"]') || null;
+
+    this.nameLabelElem = form?.querySelector('#name-label') || null;
+    this.passwordLabelElem = form?.querySelector('#password-label') || null;
+
+    this.signInBtn = form?.querySelector('[data-button="sign-in"]') || null;
+    this.signInBtn?.addEventListener('click', event => navigateHandler(event, this.signInBtn as HTMLElement));
+
+    this.signUpBtn = form?.querySelector('[data-button="sign-up"]') || null;
+
+    this.cancelBtn = form?.querySelector('[data-button="cancel"]') || null;
+    this.cancelBtn?.addEventListener('click', event => navigateHandler(event, this.cancelBtn as HTMLElement));
+
+    this.authService = new AuthServiceComponent();
+    await this.authService.init(this, firstTime);
+
     return content;
   }
 
@@ -49,5 +80,36 @@ export class SignUpPage implements Page {
 
   async unmount() {
     await unmount(this.node);
+  }
+
+  async load?(lang: string , page: router.Page, firstLoad: boolean): Promise<void> {
+    if(this.titleElem) {
+      this.titleElem.textContent = window.tr('Sign Up');
+    }
+
+    if(this.nameLabelElem) {
+      this.nameLabelElem.textContent = window.tr('Name');
+    }
+
+    if(this.passwordLabelElem) {
+      this.passwordLabelElem.textContent = window.tr('Password');
+    }
+
+    if(this.signInBtn) {
+      this.signInBtn.textContent = window.tr('Sign In');
+    }
+
+    if(this.signUpBtn) {
+      this.signUpBtn.textContent = window.tr('Sign Up');
+    }
+
+    if(this.cancelBtn) {
+      this.cancelBtn.textContent = window.tr('Cancel');
+    }
+
+    this.signInBtn?.setAttribute('href', (lang === DEFAULT_LANGUAGE ? '' : `/${lang}`) + '/sign-in');
+    this.cancelBtn?.setAttribute('href', (lang === DEFAULT_LANGUAGE ? '' : `/${lang}`) + '/');
+
+    await this.authService?.load?.(lang, page, firstLoad);
   }
 }

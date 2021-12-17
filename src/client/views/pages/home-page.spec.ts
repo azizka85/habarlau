@@ -1,5 +1,7 @@
 import '../../types/window';
 
+import { DEFAULT_LANGUAGE } from '../../../globals';
+
 import { JSDOM } from "jsdom";
 
 import { HomePage } from "./home-page";
@@ -128,7 +130,7 @@ describe('HomePage test', () => {
 
     await layoutInstance.mount();
 
-    await pageInstance.load({
+    await pageInstance.load(DEFAULT_LANGUAGE, {
       fragment: '',
       query: {},
       match: [],
@@ -158,7 +160,7 @@ describe('HomePage test', () => {
     expect(pageInstance['currScroll']).toEqual(100);
     expect(window.scrollY).toEqual(0);
 
-    await pageInstance.load({
+    await pageInstance.load(DEFAULT_LANGUAGE, {
       fragment: '',
       query: {},
       match: [],

@@ -20,7 +20,7 @@ export class MainLayout extends BaseLayout implements Page {
   protected navIcon: HTMLElement | null = null;
   protected searchIcon: HTMLElement | null = null;
 
-  protected headerIcon: HTMLElement | null = null;
+  protected headerIconElem: HTMLElement | null = null;
   protected headerIconBtn: HTMLElement | null = null;
 
   protected list: HTMLElement | null = null;
@@ -59,7 +59,7 @@ export class MainLayout extends BaseLayout implements Page {
       this.headerIconBtn = this.drawerElem?.querySelector('[data-button="header-navigation"]') || null;
 
       if(this.headerIconBtn) {
-        this.headerIcon = this.headerIconBtn.querySelector('[data-icon="header-navigation-icon"]');
+        this.headerIconElem = this.headerIconBtn.querySelector('[data-icon="header-navigation-icon"]');
 
         this.headerIconBtn.addEventListener('click', event => navigateHandler(event, this.headerIconBtn as HTMLElement));
       }
@@ -152,7 +152,7 @@ export class MainLayout extends BaseLayout implements Page {
     await unmount(this.node);    
   } 
 
-  async load(page: router.Page, firstLoad: boolean) {    
+  async load(lang: string, page: router.Page, firstLoad: boolean) {    
     const navigation = page.query['main-layout-navigation'];    
 
     if(this.navIcon) {      
@@ -174,10 +174,10 @@ export class MainLayout extends BaseLayout implements Page {
     }
 
     if(navigation) {
-      this.headerIcon?.classList.remove('drawer-header-icon-hide');
+      this.headerIconElem?.classList.remove('drawer-header-icon-hide');
       this.drawerElem?.classList.add('drawer-open');
     } else {
-      this.headerIcon?.classList.add('drawer-header-icon-hide'); 
+      this.headerIconElem?.classList.add('drawer-header-icon-hide'); 
       this.drawerElem?.classList.remove('drawer-open');
     }
   }

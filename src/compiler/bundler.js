@@ -9,13 +9,16 @@ async function build(version, dev) {
   });
 
   const clientResult = await esbuild.build({
-    entryPoints: [
-      './src/client/main.ts',
-      './src/client/views/layouts/main-layout.ts',
-      './src/client/views/pages/home-page.ts',
-      './src/client/views/pages/sign-in-page.ts',
-      './src/client/views/pages/sign-up-page.ts'
-    ],
+    entryPoints: {
+      './locales/en': './src/locales/en.json',
+      './locales/ru': './src/locales/ru.json',
+      './locales/kz': './src/locales/kz.json',
+      './main': './src/client/main.ts',
+      './views/layouts/main-layout': './src/client/views/layouts/main-layout.ts',
+      './views/pages/home-page': './src/client/views/pages/home-page.ts',
+      './views/pages/sign-in-page': './src/client/views/pages/sign-in-page.ts',
+      './views/pages/sign-up-page': './src/client/views/pages/sign-up-page.ts'
+    },
     outdir: `./public/dist/${version}/js`,
     format: 'esm',
     target: 'esnext',

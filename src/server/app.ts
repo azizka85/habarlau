@@ -1,5 +1,7 @@
 import express from "express";
 
+import { localeRoute } from "../helpers";
+
 import homeRoutes from './home/routes';
 
 import signInRoutes from './sign-in/routes';
@@ -10,7 +12,7 @@ export const port = parseInt(process.env.PORT || '3000');
 
 app.use(express.static('public'));
 
-app.use('/', homeRoutes);
+app.use(`/?${localeRoute}/`, homeRoutes);
 
-app.use('/sign-in', signInRoutes);
-app.use('/sign-up', signUpRoutes);
+app.use(`/?${localeRoute}/sign-in`, signInRoutes);
+app.use(`/?${localeRoute}/sign-up`, signUpRoutes);

@@ -1,7 +1,7 @@
 <div data-page="signin-page">
   <div class="card main-card">
     <div class="card-body">
-      <h5 class="card-title ">Sign In</h5>
+      <h5 class="card-title" data-title="main">{{ tr 'Sign In' }}</h5>
       <form method="post" class="mb-3">
         <div class="mb-3">
           <label for="email" class="form-label">Email*</label>
@@ -14,7 +14,13 @@
           >
         </div>
         <div class="mb-3">
-          <label for="password" class="form-label">Password*</label>
+          <label 
+            for="password" 
+            class="form-label" 
+            id="password-label"
+          >
+            {{ tr 'Password' }}*
+          </label>
           <input 
             type="password" 
             name="password" 
@@ -24,11 +30,29 @@
           >
         </div>
         <div style="text-align: right;" class="mb-3">
-          <a class="btn btn-light" href="{{ data.PAGE_ROOT }}sign-up">Sign Up</a>
+          <a 
+            class="btn btn-light" 
+            href="{{ data.rootLink }}sign-up" 
+            data-button="sign-up"
+          >
+            {{ tr 'Sign Up' }}
+          </a>
         </div>
         <div style="text-align: right;">
-          <button type="submit" class="btn btn-primary">Sign In</button>
-          <a class="btn btn-secondary" href="{{ data.PAGE_ROOT }}">Cancel</a>
+          <button 
+            type="submit" 
+            class="btn btn-primary"
+            data-button="sign-in"
+          >
+            {{ tr 'Sign In' }}
+          </button>
+          <a 
+            class="btn btn-secondary" 
+            href="{{ data.rootLink }}"
+            data-button="cancel"
+          >
+            {{ tr 'Cancel' }}
+          </a>
         </div>
       </form>
       {{> auth-service-component data=data }}

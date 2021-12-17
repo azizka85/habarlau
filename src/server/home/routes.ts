@@ -1,6 +1,7 @@
 import '../declarations';
 
 import { 
+  DEFAULT_LANGUAGE,
   PAGE_ROOT
 } from '../../globals';
 
@@ -10,15 +11,24 @@ import { getLayoutHandlers, renderPage, stringToArray } from '../helpers/layout-
 
 import homePage from '../templates/pages/home-page';
 
+import { trimSlashes } from '../../helpers';
+import { Langs } from '../helpers/locale-helpers';
+
 import { version } from '../../../package.json';
 
-const router = express.Router();
+const router = express.Router({
+  mergeParams: true
+});
 
 router.get('', (req, res) => {
   try {
-    let data: any = {
-      time: Date.now(),
-      PAGE_ROOT
+    const params = req.params as any;
+    const lang = trimSlashes(params[0] || DEFAULT_LANGUAGE) as Langs;
+
+    const rootLink = PAGE_ROOT + (params[0] ? `${lang}/` : '');
+
+    const data: any = {
+      time: Date.now()      
     };
   
     if(req.query.ajax && !req.query.init) {
@@ -32,6 +42,8 @@ router.get('', (req, res) => {
   
       res.send(
         renderPage(
+          lang,
+          rootLink,
           version,
           req,
           'home-page',

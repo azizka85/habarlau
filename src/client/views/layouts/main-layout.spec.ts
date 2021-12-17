@@ -1,5 +1,9 @@
 import '../../types/window';
 
+import {
+  DEFAULT_LANGUAGE
+} from '../../../globals';
+
 import { JSDOM } from 'jsdom';
 
 import { Router } from '@azizka/router';
@@ -49,7 +53,7 @@ describe('MainLayout test', () => {
     expect(instance['navIcon']).toBeFalsy();
     expect(instance['searchIcon']).toBeFalsy();
 
-    expect(instance['headerIcon']).toBeFalsy();
+    expect(instance['headerIconElem']).toBeFalsy();
     expect(instance['headerIconBtn']).toBeFalsy();
 
     expect(instance['list']).toBeFalsy();
@@ -153,9 +157,9 @@ describe('MainLayout test', () => {
     expect(instance['searchIcon']?.getAttribute('data-button')).toEqual('search');
     expect(instance['searchIcon']?.getAttribute('href')).toEqual(`?main-layout-navigation=1&test=${query.test}&main-layout-search=1`);
 
-    expect(instance['headerIcon']).toBeTruthy();
-    expect(instance['headerIcon']).toBeInstanceOf(HTMLElement);
-    expect(instance['headerIcon']?.classList.contains('drawer-header-icon-hide')).toBeTruthy();
+    expect(instance['headerIconElem']).toBeTruthy();
+    expect(instance['headerIconElem']).toBeInstanceOf(HTMLElement);
+    expect(instance['headerIconElem']?.classList.contains('drawer-header-icon-hide')).toBeTruthy();
 
     expect(instance['headerIconBtn']).toBeTruthy();
     expect(instance['headerIconBtn']).toBeInstanceOf(HTMLElement);
@@ -266,7 +270,7 @@ describe('MainLayout test', () => {
 
     instance['navIcon']?.dispatchEvent(new MouseEvent('click'));
     
-    await instance.load({
+    await instance.load(DEFAULT_LANGUAGE ,{
       fragment: window.router.fragment,
       query: window.router.query,
       match: [],
@@ -280,7 +284,7 @@ describe('MainLayout test', () => {
 
     instance['searchIcon']?.dispatchEvent(new MouseEvent('click'));
 
-    await instance.load({
+    await instance.load(DEFAULT_LANGUAGE, {
       fragment: window.router.fragment,
       query: window.router.query,
       match: [],
@@ -293,7 +297,7 @@ describe('MainLayout test', () => {
 
     instance['headerIconBtn']?.dispatchEvent(new MouseEvent('click'));
 
-    await instance.load({
+    await instance.load(DEFAULT_LANGUAGE, {
       fragment: window.router.fragment,
       query: window.router.query,
       match: [],

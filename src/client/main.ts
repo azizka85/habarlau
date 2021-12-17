@@ -1,12 +1,13 @@
 import './types/window';
 
-import { PAGE_ROOT } from '../globals';
+import { DEFAULT_LANGUAGE, PAGE_ROOT } from '../globals';
 
 import { Router } from '@azizka/router';
 
 import { LoaderPage } from './views/pages/loader-page';
 
 import { loadPage } from './loader';
+import { localeRoute, trimSlashes } from '../helpers';
 
 window.addEventListener('DOMContentLoaded', () => {
   setTimeout(() => {
@@ -17,9 +18,10 @@ window.addEventListener('DOMContentLoaded', () => {
     const router = new Router({
       root: PAGE_ROOT,
       routes: [{
-        rule: '',
+        rule: `${localeRoute}/?`,
         async handler(page) {
           await loadPage(
+            trimSlashes(page.match[0] || DEFAULT_LANGUAGE),
             page, 'home-page', 
             ['main-layout'],
             firstTime
@@ -27,9 +29,10 @@ window.addEventListener('DOMContentLoaded', () => {
         },
         options: {}
       }, {
-        rule: '/sign-in',
+        rule: `${localeRoute}/?sign-in`,
         async handler(page) {
           await loadPage(
+            trimSlashes(page.match[0] || DEFAULT_LANGUAGE),
             page, 
             'sign-in-page', 
             [], 
@@ -38,9 +41,10 @@ window.addEventListener('DOMContentLoaded', () => {
         },
         options: {}
       }, {
-        rule: '/sign-up',
+        rule: `${localeRoute}/?sign-up`,
         async handler(page) {
           await loadPage(
+            trimSlashes(page.match[0] || DEFAULT_LANGUAGE),
             page, 
             'sign-up-page', 
             [], 
@@ -53,6 +57,7 @@ window.addEventListener('DOMContentLoaded', () => {
     
     window.pages = {};
     window.layouts = {};
+    window.languages = {};
     window.router = router;
     
     router.addUriListener();

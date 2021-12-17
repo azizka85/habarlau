@@ -1,5 +1,6 @@
 import { Request } from "express";
 
+import { Langs, locales } from './locale-helpers';
 import { condition, toggleQueryParameter } from '../../helpers';
 
 import defaultLayout from "../templates/layouts/default-layout";
@@ -17,6 +18,8 @@ export interface LayoutHandlerOutput {
 }
 
 export interface LayoutHandlerInput extends LayoutHandlerOutput {
+  lang: Langs;
+  rootLink: string;
   viewName: string;
 }
 
@@ -55,6 +58,8 @@ export function getLayoutHandlers(layouts: string[]) {
 }
 
 export function renderPage(
+  lang: Langs,
+  rootLink: string,
   version: string,  
   req: Request, 
   pageName: string,
@@ -68,7 +73,14 @@ export function renderPage(
     ...partials
   };
   helpers = {
-    ...helpers
+    ...helpers,
+    tr: locales[lang]
+  };
+
+  data = {
+    ...data,
+    lang,
+    rootLink
   };
 
   let viewName = pageName;
@@ -79,6 +91,8 @@ export function renderPage(
       const handler = handlerInfo.handler;
 
       const viewData = handler(req, {
+        lang,
+        rootLink,
         data,
         helpers,
         partials,
@@ -103,6 +117,8 @@ export function renderPage(
     view = defaultLayout;    
 
     data = {
+      lang,
+      rootLink,
       version,
       content: viewName,
       contentData: data
@@ -120,6 +136,9 @@ export function renderPage(
 export function mainLayoutHandler(req: Request, input: LayoutHandlerInput): LayoutHandlerOutput {
   const view = mainLayout;
 
+  const lang = input.lang;
+  const rootLink = input.rootLink;
+
   input.partials[input.viewName] = input.view;
 
   const helpers = {
@@ -132,6 +151,8 @@ export function mainLayoutHandler(req: Request, input: LayoutHandlerInput): Layo
   const search = req.query['main-layout-search'] === '1';
 
   const data = {
+    lang,
+    rootLink,
     navigation,
     search,
     query: req.query,

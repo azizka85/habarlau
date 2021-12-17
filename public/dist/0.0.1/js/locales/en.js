@@ -1,0 +1,1 @@
+import"../chunk-2W6XHV3X.js";var e={"Habarlau - Application to make a business":"Habarlau - Application to make a business","Sign In":"Sign In","Sign Up":"Sign Up",Name:"Name",Password:"Password",Cancel:"Cancel","Or use the service":"Or use the service"},i={values:e};export{i as default,e as values};

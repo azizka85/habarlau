@@ -2,9 +2,8 @@ import '../declarations';
 
 import express from 'express';
 
-import Handlebars from 'handlebars';
-
 import { 
+  DEFAULT_LANGUAGE,
   PAGE_ROOT
 } from '../../globals';
 
@@ -14,15 +13,24 @@ import { version } from '../../../package.json';
 
 import signUpPage from '../templates/pages/sign-up-page';
 
+import { trimSlashes } from '../../helpers';
+import { Langs } from '../helpers/locale-helpers';
+
 import authServiceComponent from '../templates/components/auth-service-component';
 
-const router = express.Router();
+const router = express.Router({
+  mergeParams: true
+});
 
 router.get('', (req, res) => {
   try {
-    let data: any = {
-      time: Date.now(),
-      PAGE_ROOT
+    const params = req.params as any;
+    const lang = trimSlashes(params[0] || DEFAULT_LANGUAGE) as Langs;
+
+    const rootLink = PAGE_ROOT + (params[0] ? `${lang}/` : '');
+
+    const data: any = {
+      time: Date.now()
     };
   
     if(req.query.ajax && !req.query.init) {
@@ -30,6 +38,8 @@ router.get('', (req, res) => {
     } else {          
       res.send(
         renderPage(
+          lang,
+          rootLink,
           version,
           req,
           'sign-up-page',
