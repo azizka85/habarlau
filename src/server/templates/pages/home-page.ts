@@ -1,5 +1,5 @@
-import Handlebars from 'handlebars';
+import ejs from 'ejs';
 
-import homePageTpl from './home-page.hbs';
+import homePageTpl from './home-page.ejs';
 
-export default Handlebars.compile(homePageTpl);
+export default ejs.compile(homePageTpl);

@@ -1,16 +1,16 @@
 <div data-page="home-page">    
   <div>
     <button class="btn btn-primary">Home page</button>
-    <a class="btn btn-outline-secondary" href="{{ data.rootLink }}sign-in">
+    <a class="btn btn-outline-secondary" href="<%= data.rootLink %>sign-in">
       Sign In page
     </a> 
-    <a class="btn btn-outline-dark" href="{{ data.rootLink }}sign-up">
+    <a class="btn btn-outline-dark" href="<%= data.rootLink %>sign-up">
       Sign Up page
     </a> 
   </div>
   <br>
   <div>
-    Home page, time: {{ data.time }}
+    Home page, time: <%= data.time %> 
   </div>
   <br>
   <button class="btn btn-primary btn-exited" data-button="scroll-top">

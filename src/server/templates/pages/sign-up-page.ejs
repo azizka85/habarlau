@@ -1,15 +1,18 @@
 <div data-page="signup-page">
   <div class="card main-card">
     <div class="card-body">
-      <h5 class="card-title" data-title="main">{{ tr 'Sign Up' }}</h5>
+      <h5 class="card-title" data-title="main"><%= helpers.tr('Sign Up') %></h5>
       <form method="post" class="mb-3">
         <div class="mb-3">
           <label 
             for="name" 
-            class="form-label"
-            id="name-label"
+            class="form-label"            
           >
-            {{ tr 'Name' }}*
+            <span 
+              id="name-label"
+            >
+              <%= helpers.tr('Name') %> 
+            </span>*            
           </label>
           <input 
             type="text" 
@@ -32,10 +35,13 @@
         <div class="mb-3">
           <label 
             for="password" 
-            class="form-label"
-            id="password-label"
+            class="form-label"            
           >
-            {{ tr 'Password' }}*
+            <span 
+              id="password-label"
+            >
+              <%= helpers.tr('Password') %> 
+            </span>*
           </label>
           <input 
             type="password" 
@@ -48,10 +54,10 @@
         <div style="text-align: right;" class="mb-3">
           <a 
             class="btn btn-light" 
-            href="{{ data.rootLink }}sign-in"
+            href="<%= data.rootLink %>sign-in"
             data-button="sign-in"
           >
-            {{ tr 'Sign In' }}
+            <%= helpers.tr('Sign In') %> 
           </a>
         </div>
         <div style="text-align: right;">
@@ -60,18 +66,24 @@
             class="btn btn-primary"
             data-button="sign-up"
           >
-            {{ tr 'Sign Up' }}
+            <%= helpers.tr('Sign Up') %> 
           </button>
           <a 
             class="btn btn-secondary" 
-            href="{{ data.rootLink }}"
+            href="<%= data.rootLink %>"
             data-button="cancel"
           >
-            {{ tr 'Cancel' }}
+            <%= helpers.tr('Cancel') %> 
           </a>
         </div>
       </form>
-      {{> auth-service-component data=data }}
+      <%- 
+        partials['auth-service-component']({
+          data,
+          partials,
+          helpers
+        })
+      %> 
     </div>
   </div>
 </div>

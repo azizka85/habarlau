@@ -62,7 +62,7 @@ async function build(version, dev) {
     ],
     outdir: './dist',
     loader: {
-      '.hbs': 'text'
+      '.ejs': 'text'
     },
     format: 'cjs',
     platform: 'node',

@@ -1,9 +1,5 @@
 import { LANGUAGES } from "./globals";
 
-export function condition(expect: boolean, trueValue: string, falseValue: string) {
-  return expect ? trueValue : falseValue;
-}
-
 export function getQueryParameters(
   query: {[key: string]: any}
 ) {

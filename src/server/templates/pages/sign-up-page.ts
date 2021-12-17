@@ -1,5 +1,5 @@
-import Handlebars from 'handlebars';
+import ejs from 'ejs';
 
-import signUpPageTpl from './sign-up-page.hbs';
+import signUpPageTpl from './sign-up-page.ejs';
 
-export default Handlebars.compile(signUpPageTpl);
+export default ejs.compile(signUpPageTpl);

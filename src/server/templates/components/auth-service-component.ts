@@ -1,6 +1,6 @@
-import Handlebars from 'handlebars';
+import ejs from 'ejs';
 
-import authServiceComponentTpl from './auth-service-component.hbs';
+import authServiceComponentTpl from './auth-service-component.ejs';
 
-export default Handlebars.compile(authServiceComponentTpl);
+export default ejs.compile(authServiceComponentTpl);
 

@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="{{ data.lang }}">
+<html lang="<%= data.lang %> ">
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{{ tr 'Habarlau - Application to make a business' }}</title>
+  <title><%= helpers.tr('Habarlau - Application to make a business') %> </title>
   <link rel='icon' type='image/png' href='/favicon.png'>
-  <link rel="stylesheet" href="/dist/{{ data.version }}/css/main.css">  
+  <link rel="stylesheet" href="/dist/<%= data.version %>/css/main.css">  
 </head>
 <body>
   <div class="splash">
@@ -24,7 +24,15 @@
 
     splashElem?.classList.add('splash--open');
   </script>
-  {{> (lookup data 'content') data=data.contentData }}
-  <script src="/dist/{{ data.version }}/js/main.js" type="module"></script>
+  <% if(data.content) { %> 
+    <%- 
+      partials[data.content]({
+        data: data.contentData,
+        partials,
+        helpers
+      }) 
+    %> 
+  <% } %>     
+  <script src="/dist/<%= data.version %>/js/main.js" type="module"></script>
 </body>
 </html>

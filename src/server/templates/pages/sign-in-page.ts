@@ -1,5 +1,5 @@
-import Handlebars from 'handlebars';
+import ejs from 'ejs';
 
-import signInPageTpl from './sign-in-page.hbs';
+import signInPageTpl from './sign-in-page.ejs';
 
-export default Handlebars.compile(signInPageTpl);
+export default ejs.compile(signInPageTpl);

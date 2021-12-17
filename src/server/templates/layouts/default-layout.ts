@@ -1,6 +1,6 @@
-import Handlebars from 'handlebars';
+import ejs from 'ejs';
 
-import defaultLayoutTpl from './default-layout.hbs';
+import defaultLayoutTpl from './default-layout.ejs';
 
-export default Handlebars.compile(defaultLayoutTpl);
+export default ejs.compile(defaultLayoutTpl);
 

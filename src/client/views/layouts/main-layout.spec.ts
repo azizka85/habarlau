@@ -13,7 +13,7 @@ import { MainLayout } from "./main-layout";
 import { LocationMock } from '../../mocks/location-mock';
 import { HistoryMock } from '../../mocks/history-mock';
 
-import { toggleQueryParameter, condition } from "../../../helpers";
+import { toggleQueryParameter } from "../../../helpers";
 
 describe('MainLayout test', () => {
   beforeEach(() => {
@@ -107,7 +107,7 @@ describe('MainLayout test', () => {
             </div>
           </div>
         </header>
-        <aside class="drawer ${ condition(navigation, 'drawer-open', '') }">
+        <aside class="drawer ${ navigation ? 'drawer-open' : '' }">
           <div class="drawer-header">
             <a 
               data-button="header-navigation"
@@ -221,7 +221,7 @@ describe('MainLayout test', () => {
             </div>
           </div>
         </header>
-        <aside class="drawer ${ condition(navigation, 'drawer--open', '') }">
+        <aside class="drawer ${ navigation ? 'drawer--open' : '' }">
           <div class="drawer-header">
             <a 
               data-button="header-navigation"

@@ -1,7 +1,8 @@
 import { Request } from "express";
+import { TemplateFunction } from "ejs";
 
 import { Langs, locales } from './locale-helpers';
-import { condition, toggleQueryParameter } from '../../helpers';
+import { toggleQueryParameter } from '../../helpers';
 
 import defaultLayout from "../templates/layouts/default-layout";
 import mainLayout from "../templates/layouts/main-layout";
@@ -14,7 +15,7 @@ export interface LayoutHandlerOutput {
   partials: any;
   helpers: any;
   data: any;
-  view: HandlebarsTemplateDelegate;
+  view: TemplateFunction;
 }
 
 export interface LayoutHandlerInput extends LayoutHandlerOutput {
@@ -63,7 +64,7 @@ export function renderPage(
   version: string,  
   req: Request, 
   pageName: string,
-  page: HandlebarsTemplateDelegate, 
+  page: TemplateFunction, 
   data: any,   
   layoutHandlers?: LayoutHandlerInfo[],
   partials?: any,
@@ -126,10 +127,9 @@ export function renderPage(
   }
 
   return view({ 
-    data 
-  }, {
+    data,
     partials,
-    helpers
+    helpers 
   });
 }
 
@@ -143,7 +143,6 @@ export function mainLayoutHandler(req: Request, input: LayoutHandlerInput): Layo
 
   const helpers = {
     ...input.helpers,
-    condition, 
     toggleQueryParameter
   };
 

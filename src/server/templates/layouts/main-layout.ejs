@@ -32,7 +32,7 @@
       <div class="app-bar-section app-bar-section-align-start">
         <a 
           data-button="navigation"          
-          href="?{{ toggleQueryParameter data.query 'main-layout-navigation' }}"
+          href="?<%= helpers.toggleQueryParameter(data.query, 'main-layout-navigation') %> "
         >
           <svg class="app-bar-icon" viewBox="0 0 16 16">
             <path 
@@ -49,7 +49,7 @@
       <div class="app-bar-section app-bar-section-align-end">
         <a 
           data-button="search"
-          href="?{{ toggleQueryParameter data.query 'main-layout-search' }}"
+          href="?<%= helpers.toggleQueryParameter(data.query, 'main-layout-search') %> "
         >
           <svg class="app-bar-icon" viewBox="0 0 16 16">
             <path 
@@ -65,14 +65,14 @@
       </div>
     </div>
   </header>
-  <aside class="drawer {{ condition data.navigation 'drawer-open' '' }}">
+  <aside class="drawer <%= data.navigation ? 'drawer-open' : '' %>">
     <div class="drawer-header">
       <a 
         data-button="header-navigation"
-        href="?{{ toggleQueryParameter data.query 'main-layout-navigation' }}"
+        href="?<%= helpers.toggleQueryParameter(data.query, 'main-layout-navigation') %> "
       >
         <svg 
-          class="drawer-header-icon {{ condition data.navigation '' 'drawer-header-icon-hide' }}" 
+          class="drawer-header-icon <%= data.navigation ? '' : 'drawer-header-icon-hide' %>" 
           viewBox="0 0 16 16" 
           data-icon="header-navigation-icon"
         >
@@ -139,6 +139,14 @@
     </div>
   </aside>
   <main id="main-content" class="main-content app-bar-fixed-adjust">
-    {{> (lookup data 'content') data=data.contentData }}
+    <% if(data.content) { %> 
+      <%- 
+        partials[data.content]({
+          data: data.contentData,
+          partials,
+          helpers
+        }) 
+      %> 
+    <% } %> 
   </main>
 </div>
