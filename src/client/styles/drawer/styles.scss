@@ -101,12 +101,16 @@
       .list {
         background-color: $body-bg;
         position: absolute;
-        top: app-bar-variables.$row-height + list-variables.$line-height;
+        top: app-bar-variables.$row-height + list-variables.$line-height - list-variables.$margin-vertical;
         z-index: app-bar-variables.$z-index + 3;
         max-height: 0;
         opacity: 0;
         transition: max-height 200ms linear, opacity 200ms linear;
         overflow: hidden;
+
+        &-item {
+          padding-right: list-variables.$margin-horizontal;
+        }
       }
 
       input:checked ~ .list {

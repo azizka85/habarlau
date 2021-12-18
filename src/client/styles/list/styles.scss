@@ -15,7 +15,7 @@
     color: tint-color(color-contrast($body-bg), 30%);
     cursor: pointer;
 
-    &:hover {
+    &:hover, &-activated {
       background-color: rgba($primary, 0.15);
     }
 

@@ -1,10 +1,11 @@
 import * as router from '@azizka/router';
 
-import { SCROLL_THRESHOLD } from "../../../globals";
+import { LANGUAGES, SCROLL_THRESHOLD } from "../../../globals";
+
 import { Page } from '../view';
 import { BaseLayout } from "./base-layout";
 
-import { toggleQueryParameter } from "../../../helpers";
+import { changeLangPath, getQueryParameters, toggleQueryParameter } from "../../../helpers";
 import { mount, navigateHandler, unmount } from '../../helpers';
 
 import { ScrollActionTo, ScrollActionTop, ScrollEventData, ScrollEventType } from '../../types/scroll';
@@ -24,6 +25,10 @@ export class MainLayout extends BaseLayout implements Page {
   protected headerIconBtn: HTMLElement | null = null;
 
   protected list: HTMLElement | null = null;
+  protected langList: HTMLElement | null = null;
+
+  protected langElem: HTMLElement | null = null;
+  protected langImageElem: HTMLImageElement | null = null;
 
   protected searchPanel: HTMLElement | null = null;
   protected searchForm: HTMLFormElement | null = null;  
@@ -64,7 +69,36 @@ export class MainLayout extends BaseLayout implements Page {
         this.headerIconBtn.addEventListener('click', event => navigateHandler(event, this.headerIconBtn as HTMLElement));
       }
 
-      this.list = this.drawerElem?.querySelector('.list') || null;
+      const drawerLangBar = this.drawerElem?.querySelector('.drawer-lang-bar');
+
+      drawerLangBar?.addEventListener(
+        'mouseenter',
+        () => this.drawerElem?.classList.add('drawer-hover')
+      );
+
+      const drawerLangCheckbox = drawerLangBar?.querySelector('input[type="checkbox"]') as HTMLInputElement; 
+
+      this.langElem = drawerLangBar?.querySelector('[data-content="lang"]') || null;
+      this.langImageElem = drawerLangBar?.querySelector('[data-image="lang"]') || null;
+
+      this.langList = drawerLangBar?.querySelector('[data-list="lang"]') || null;
+
+      if(this.langList) {
+        for(const item of this.langList.children) {
+          item.addEventListener(
+            'click',
+            event => {
+              navigateHandler(event, item as HTMLElement);
+
+              if(drawerLangCheckbox) {
+                drawerLangCheckbox.checked = false;
+              }
+            }
+          );
+        }
+      }
+
+      this.list = this.drawerElem?.querySelector('[data-list="main"]') || null;
 
       if(this.list) {
         for(const item of this.list.children) {
@@ -179,6 +213,31 @@ export class MainLayout extends BaseLayout implements Page {
     } else {
       this.headerIconElem?.classList.add('drawer-header-icon-hide'); 
       this.drawerElem?.classList.remove('drawer-open');
+    }
+
+    if(this.langElem) {
+      this.langElem.textContent = (LANGUAGES as any)[lang]?.label;
+    }
+
+    if(this.langImageElem) {
+      this.langImageElem.src = (LANGUAGES as any)[lang]?.image;
+    }
+
+    if(this.langList) {
+      for(const item of this.langList.children) {
+        if(item.getAttribute('data-list-item') === `lang-${lang}`) {
+          item.classList.add('list-item-activated');
+        } else {
+          item.classList.remove('list-item-activated');
+        }                
+
+        const path = (item.getAttribute('href') || '').split('?')[0];
+
+        item.setAttribute(
+          'href', 
+          `${path}?${getQueryParameters(page.query)}`
+        );
+      }
     }
   }
 
