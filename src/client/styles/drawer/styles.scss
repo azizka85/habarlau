@@ -1,4 +1,5 @@
 @use '../app-bar/variables' as app-bar-variables;
+@use '../list/variables' as list-variables;
 @use '../variables' as global-variables;
 @use './variables';
 
@@ -49,6 +50,69 @@
 
       &-hide {
         transform: rotate(180deg);
+      }
+    }
+  }
+
+  &-lang-bar {
+    display: flex;
+    align-items: center;
+    flex-wrap: nowrap;
+    height: list-variables.$line-height;
+    margin: variables.$lang-bar-margin;
+    overflow: hidden;
+    cursor: pointer;
+
+    &-flag {
+      width: 1.5rem;
+      height: 1.5rem;
+      margin: 0 list-variables.$margin-horizontal;
+    }  
+
+    label {
+      cursor: pointer;
+
+      input {
+        top: 0;
+        left: 0;
+        width: 0;
+        height: 0;
+        position: absolute;        
+      }
+
+      .drawer-lang-bar-current {
+        display: flex;
+        align-items: center;
+  
+        .drawer-lang-bar-current-icon {
+          width: 1rem;
+          height: 1rem;
+          fill: tint-color(color-contrast($body-bg), 30%);          
+          margin-left: list-variables.$margin-horizontal;
+          transform: rotate(0deg);
+          transition: transform 200ms linear;
+        }
+      }
+
+      input:checked ~ .drawer-lang-bar-current .drawer-lang-bar-current-icon {
+        transform: rotate(-180deg);
+      }
+
+      .list {
+        background-color: $body-bg;
+        position: absolute;
+        top: app-bar-variables.$row-height + list-variables.$line-height;
+        z-index: app-bar-variables.$z-index + 3;
+        max-height: 0;
+        opacity: 0;
+        transition: max-height 200ms linear, opacity 200ms linear;
+        overflow: hidden;
+      }
+
+      input:checked ~ .list {
+        max-height: 10rem;
+        opacity: 1;
+        box-shadow: $box-shadow-lg;        
       }
     }
   }

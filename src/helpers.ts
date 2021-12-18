@@ -60,3 +60,17 @@ export const localeRoute = `(${Object.keys(LANGUAGES).join('|')})?`;
 export function trimSlashes(path: string) {
   return path.replace(/\/$/, '').replace(/^\//, '');
 }
+
+export function changeLangPath(url: string, lang: string) {
+  url = trimSlashes(url);
+
+  const langRoute = new RegExp(`^(${Object.keys(LANGUAGES).join('|')})`);
+
+  const index = url.search(langRoute);
+
+  if(index >= 0) {
+    return url.replace(langRoute, lang)
+  }
+
+  return `${lang}/${url}`;
+}
