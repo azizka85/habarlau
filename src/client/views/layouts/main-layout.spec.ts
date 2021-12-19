@@ -24,11 +24,12 @@ describe('MainLayout test', () => {
     global.location = (new LocationMock() as unknown) as Location;
     global.history = (new HistoryMock(location) as unknown) as History;
 
-    location.pathname = '/';
+    location.pathname = '/ru';
     location.search = '?main-layout-navigation=1&test=123';  
 
     global.HTMLElement = dom.window.HTMLElement;
     global.HTMLFormElement = dom.window.HTMLFormElement;
+    global.HTMLInputElement = dom.window.HTMLInputElement;
 
     global.Event = (document.defaultView as Window & typeof globalThis).Event;
     global.MouseEvent = (document.defaultView as Window & typeof globalThis).MouseEvent;
@@ -57,13 +58,20 @@ describe('MainLayout test', () => {
     expect(instance['headerIconBtn']).toBeFalsy();
 
     expect(instance['list']).toBeFalsy();
+    expect(instance['langList']).toBeFalsy();
 
-    expect(instance['searchForm']).toBeFalsy();   
+    expect(instance['langElem']).toBeFalsy();
+    expect(instance['langImageElem']).toBeFalsy();
+
+    expect(instance['searchPanel']).toBeFalsy();
+    expect(instance['searchForm']).toBeFalsy(); 
+    expect(instance['searchInput']).toBeFalsy();  
   });
 
   test('Should init from html', async () => {
     const query = window.router.query;
 
+    let lang = 'ru';
     const navigation = query['main-layout-navigation'] ? true : false;
 
     document.body.innerHTML = `
@@ -117,6 +125,60 @@ describe('MainLayout test', () => {
             </a>
           </div>
           <div class="drawer-content">
+            <div class="drawer-lang-bar">
+              <img 
+                class="drawer-lang-bar-flag"
+                data-image="lang"
+              >
+              <label>
+                <input type="checkbox">
+                <div class="drawer-lang-bar-current">            
+                  <span data-content="lang"></span> 
+                  <svg class="drawer-lang-bar-current-icon" viewBox="0 0 16 16">
+                    <path 
+                      fill-rule="evenodd" 
+                      d="
+                        M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 
+                        0zM8.5 4.5a.5.5 0 0 0-1 0v5.793L5.354 8.146a.5.5 0 1 0-.708.708l3 
+                        3a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V4.5z
+                      "
+                    />
+                  </svg>
+                </div>
+                <div class="list" data-list="lang">
+                  <a 
+                    data-list-item="lang-kz"
+                    class="list-item ${lang === 'kz' ? 'list-item-activated' : ''}"
+                    href="/kz"
+                  >
+                    <img 
+                      src="/images/flags/kz.svg" 
+                      class="drawer-lang-bar-flag"
+                    >
+                  </a>
+                  <a 
+                    data-list-item="lang-ru"
+                    class="list-item ${lang === 'ru' ? 'list-item-activated' : ''}"
+                    href="/ru"
+                  >
+                    <img 
+                      src="/images/flags/ru.svg" 
+                      class="drawer-lang-bar-flag"
+                    >
+                  </a>
+                  <a 
+                    data-list-item="lang-en"
+                    class="list-item ${lang === 'en' ? 'list-item-activated' : ''}"
+                    href="/en"
+                  >
+                    <img 
+                      src="/images/flags/en.svg" 
+                      class="drawer-lang-bar-flag"
+                    >
+                  </a>
+                </div>
+              </label>
+            </div>          
             <div class="list" data-list="main">
               <a class="list-item list-item-activated" href="#"></a>
               <a class="list-item" href="#"></a>
@@ -170,13 +232,32 @@ describe('MainLayout test', () => {
     expect(instance['list']).toBeInstanceOf(HTMLElement);
     expect(instance['list']?.children.length).toEqual(3);
 
+    expect(instance['langList']).toBeTruthy();
+    expect(instance['langList']).toBeInstanceOf(HTMLElement);
+    expect(instance['langList']?.children.length).toEqual(3);
+
+    expect(instance['langElem']).toBeTruthy();
+    expect(instance['langElem']).toBeInstanceOf(HTMLElement);
+    expect(instance['langElem']?.getAttribute('data-content')).toEqual('lang');
+
+    expect(instance['langImageElem']).toBeTruthy();
+    expect(instance['langImageElem']).toBeInstanceOf(HTMLElement);
+    expect(instance['langImageElem']?.getAttribute('data-image')).toEqual('lang');
+
+    expect(instance['searchPanel']).toBeTruthy();
+    expect(instance['searchPanel']).toBeInstanceOf(HTMLElement);
+
     expect(instance['searchForm']).toBeTruthy();
     expect(instance['searchForm']).toBeInstanceOf(HTMLFormElement);
+
+    expect(instance['searchInput']).toBeTruthy();
+    expect(instance['searchInput']).toBeInstanceOf(HTMLInputElement);
   });
 
   test('Handlers should work correctly', async () => {        
     const query = window.router.query;
 
+    let lang = 'en';
     const navigation = query['main-layout-navigation'] ? true : false;
 
     document.body.innerHTML = `
@@ -229,6 +310,60 @@ describe('MainLayout test', () => {
             ></a>
           </div>
           <div class="drawer-content">
+            <div class="drawer-lang-bar">
+              <img 
+                class="drawer-lang-bar-flag"
+                data-image="lang"
+              >
+              <label>
+                <input type="checkbox">
+                <div class="drawer-lang-bar-current">            
+                  <span data-content="lang"></span> 
+                  <svg class="drawer-lang-bar-current-icon" viewBox="0 0 16 16">
+                    <path 
+                      fill-rule="evenodd" 
+                      d="
+                        M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 
+                        0zM8.5 4.5a.5.5 0 0 0-1 0v5.793L5.354 8.146a.5.5 0 1 0-.708.708l3 
+                        3a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V4.5z
+                      "
+                    />
+                  </svg>
+                </div>
+                <div class="list" data-list="lang">
+                  <a 
+                    data-list-item="lang-kz"
+                    class="list-item ${lang === 'kz' ? 'list-item-activated' : ''}"
+                    href="/kz"
+                  >
+                    <img 
+                      src="/images/flags/kz.svg" 
+                      class="drawer-lang-bar-flag"
+                    >
+                  </a>
+                  <a 
+                    data-list-item="lang-ru"
+                    class="list-item ${lang === 'ru' ? 'list-item-activated' : ''}"
+                    href="/ru"
+                  >
+                    <img 
+                      src="/images/flags/ru.svg" 
+                      class="drawer-lang-bar-flag"
+                    >
+                  </a>
+                  <a 
+                    data-list-item="lang-en"
+                    class="list-item ${lang === 'en' ? 'list-item-activated' : ''}"
+                    href="/en"
+                  >
+                    <img 
+                      src="/images/flags/en.svg" 
+                      class="drawer-lang-bar-flag"
+                    >
+                  </a>
+                </div>
+              </label>
+            </div>    
             <div class="list" data-list="main">
               <a class="list-item list-item-activated" href="#"></a>
               <a class="list-item" href="#"></a>
@@ -279,12 +414,19 @@ describe('MainLayout test', () => {
     
     expect(instance['drawerElem']?.classList.contains('drawer-open')).toBeFalsy();
     expect(instance['navIcon']?.getAttribute('href')).toEqual(`?test=${query.test}&main-layout-navigation=1`);
+    expect(instance['headerIconElem']?.classList.contains('drawer-header-icon-hide')).toBeFalsy();
     expect(instance['headerIconBtn']?.getAttribute('href')).toEqual(`?test=${query.test}&main-layout-navigation=1`);
     expect(instance['searchIcon']?.getAttribute('href')).toEqual(`?test=${query.test}&main-layout-search=1`);
+    expect(instance['langList']?.children[0].classList.contains('list-item-activated')).toBeTruthy();
+    expect(instance['langList']?.children[0].getAttribute('href')).toEqual('/kz?test=123');
+    expect(instance['langList']?.children[1].classList.contains('list-item-activated')).toBeFalsy();
+    expect(instance['langList']?.children[1].getAttribute('href')).toEqual('/ru?test=123');
+    expect(instance['langList']?.children[2].classList.contains('list-item-activated')).toBeFalsy();
+    expect(instance['langList']?.children[2].getAttribute('href')).toEqual('/en?test=123');
 
     instance['searchIcon']?.dispatchEvent(new MouseEvent('click'));
 
-    await instance.load(DEFAULT_LANGUAGE, {
+    await instance.load('ru', {
       fragment: window.router.fragment,
       query: window.router.query,
       match: [],
@@ -294,10 +436,16 @@ describe('MainLayout test', () => {
     expect(instance['navIcon']?.getAttribute('href')).toEqual(`?test=${query.test}&main-layout-search=1&main-layout-navigation=1`);
     expect(instance['headerIconBtn']?.getAttribute('href')).toEqual(`?test=${query.test}&main-layout-search=1&main-layout-navigation=1`);
     expect(instance['searchIcon']?.getAttribute('href')).toEqual(`?test=${query.test}`);
+    expect(instance['langList']?.children[0].classList.contains('list-item-activated')).toBeFalsy();
+    expect(instance['langList']?.children[0].getAttribute('href')).toEqual('/kz?test=123&main-layout-search=1');
+    expect(instance['langList']?.children[1].classList.contains('list-item-activated')).toBeTruthy();
+    expect(instance['langList']?.children[1].getAttribute('href')).toEqual('/ru?test=123&main-layout-search=1');
+    expect(instance['langList']?.children[2].classList.contains('list-item-activated')).toBeFalsy();
+    expect(instance['langList']?.children[2].getAttribute('href')).toEqual('/en?test=123&main-layout-search=1');
 
     instance['headerIconBtn']?.dispatchEvent(new MouseEvent('click'));
 
-    await instance.load(DEFAULT_LANGUAGE, {
+    await instance.load('en', {
       fragment: window.router.fragment,
       query: window.router.query,
       match: [],
@@ -308,6 +456,12 @@ describe('MainLayout test', () => {
     expect(instance['navIcon']?.getAttribute('href')).toEqual(`?test=${query.test}&main-layout-search=1`);
     expect(instance['headerIconBtn']?.getAttribute('href')).toEqual(`?test=${query.test}&main-layout-search=1`);
     expect(instance['searchIcon']?.getAttribute('href')).toEqual(`?test=${query.test}&main-layout-navigation=1`);
+    expect(instance['langList']?.children[0].classList.contains('list-item-activated')).toBeFalsy();
+    expect(instance['langList']?.children[0].getAttribute('href')).toEqual('/kz?test=123&main-layout-search=1&main-layout-navigation=1');
+    expect(instance['langList']?.children[1].classList.contains('list-item-activated')).toBeFalsy();
+    expect(instance['langList']?.children[1].getAttribute('href')).toEqual('/ru?test=123&main-layout-search=1&main-layout-navigation=1');
+    expect(instance['langList']?.children[2].classList.contains('list-item-activated')).toBeTruthy();
+    expect(instance['langList']?.children[2].getAttribute('href')).toEqual('/en?test=123&main-layout-search=1&main-layout-navigation=1');
 
     instance['list']?.children[0].dispatchEvent(new MouseEvent('mouseenter'));
 
@@ -317,9 +471,13 @@ describe('MainLayout test', () => {
 
     expect(instance['drawerElem']?.classList.contains('drawer-hover')).toBeFalsy();
 
+    instance['drawerElem']?.querySelector('.drawer-lang-bar')?.dispatchEvent(new MouseEvent('mouseenter'));
+
+    expect(instance['drawerElem']?.classList.contains('drawer-hover')).toBeTruthy();
+
     instance['searchInput']?.dispatchEvent(new FocusEvent('focus'));
 
-    expect(instance['searchPanel']?.classList.contains('search-focus')).toBeTruthy();
+    expect(instance['searchPanel']?.classList.contains('search-focus')).toBeTruthy();  
 
     (instance['searchInput'] as HTMLInputElement).value = 'Hello World!';
 

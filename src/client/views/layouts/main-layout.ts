@@ -1,11 +1,11 @@
 import * as router from '@azizka/router';
 
-import { LANGUAGES, SCROLL_THRESHOLD } from "../../../globals";
+import { DEFAULT_LANGUAGE, LANGUAGES, SCROLL_THRESHOLD } from "../../../globals";
 
 import { Page } from '../view';
 import { BaseLayout } from "./base-layout";
 
-import { changeLangPath, getQueryParameters, toggleQueryParameter } from "../../../helpers";
+import { changeLangPath, toggleQueryParameter } from "../../../helpers";
 import { mount, navigateHandler, unmount } from '../../helpers';
 
 import { ScrollActionTo, ScrollActionTop, ScrollEventData, ScrollEventType } from '../../types/scroll';
@@ -231,11 +231,12 @@ export class MainLayout extends BaseLayout implements Page {
           item.classList.remove('list-item-activated');
         }                
 
-        const path = (item.getAttribute('href') || '').split('?')[0];
+        const itemLang = item.getAttribute('data-list-item')?.split('-')[1] || DEFAULT_LANGUAGE;
+        const path = changeLangPath(location.pathname, itemLang);
 
         item.setAttribute(
           'href', 
-          `${path}?${getQueryParameters(page.query)}`
+          `/${path + location.search}`
         );
       }
     }

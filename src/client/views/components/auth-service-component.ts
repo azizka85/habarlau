@@ -9,7 +9,7 @@ export class AuthServiceComponent implements Component {
     this.titleElem = page.elem?.querySelector('[data-title="auth-service"]') || null;
   }
 
-  async load?(lang: string, page: router.Page, firstLoad: boolean): Promise<void> {
+  async load(lang: string, page: router.Page, firstLoad: boolean): Promise<void> {
     if(this.titleElem) {
       this.titleElem.textContent = window.tr('Or use the service');
     }
