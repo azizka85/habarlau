@@ -245,7 +245,7 @@ export class MainLayout extends BaseLayout implements Page {
     this.node?.addEventListener(type, listener);
   }
 
-  doAction(type: string, data: any) {
+  performAction(type: string, data: any) {
     switch(type) {
       case ScrollActionTop:
         window.scrollTo({

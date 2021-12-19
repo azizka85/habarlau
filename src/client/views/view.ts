@@ -2,7 +2,7 @@ import * as router from '@azizka/router';
 
 export interface Listener {
   listen?(type: string, listener: EventListenerOrEventListenerObject): void;
-  doAction?(type: string, data: any): void;
+  performAction?(type: string, data: any): void;
 }
 
 export interface Component extends Listener {

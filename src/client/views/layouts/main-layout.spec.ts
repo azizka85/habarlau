@@ -117,7 +117,7 @@ describe('MainLayout test', () => {
             </a>
           </div>
           <div class="drawer-content">
-            <div class="list">
+            <div class="list" data-list="main">
               <a class="list-item list-item-activated" href="#"></a>
               <a class="list-item" href="#"></a>
               <a class="list-item" href="#"></a>
@@ -229,7 +229,7 @@ describe('MainLayout test', () => {
             ></a>
           </div>
           <div class="drawer-content">
-            <div class="list">
+            <div class="list" data-list="main">
               <a class="list-item list-item-activated" href="#"></a>
               <a class="list-item" href="#"></a>
               <a class="list-item" href="#"></a>

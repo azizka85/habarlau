@@ -39,7 +39,7 @@ export class HomePage implements Page {
     this.scrollTopBtn = this.node?.querySelector('[data-button="scroll-top"]') || null;
 
     this.scrollTopBtn?.addEventListener('click', () => {
-      window.layouts['main-layout']?.doAction?.(ScrollActionTop, null);
+      window.layouts['main-layout']?.performAction?.(ScrollActionTop, null);
     });
     
     return content;
@@ -68,7 +68,7 @@ export class HomePage implements Page {
       });
     }
 
-    window.layouts['main-layout']?.doAction?.(ScrollActionTo, {
+    window.layouts['main-layout']?.performAction?.(ScrollActionTo, {
       top: this.currScroll,
       noSmooth: true
     });
