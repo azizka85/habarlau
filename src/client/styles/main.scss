@@ -30,10 +30,6 @@ html, body {
   margin: 0;
 }
 
-[data-layout] {
-  display: flex;
-}
-
 [data-layout], [data-page] {
   opacity: 1;
   transition: opacity 250ms linear;
