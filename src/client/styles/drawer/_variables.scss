@@ -1,9 +1,17 @@
 // elevation
 $z-index: 1 !default;
 
-// width
-$width: 16rem !default;
+// width & height
+$width: 18rem !default;
 $min-width: 3.5rem !default;
+$avatar-min-size: 2.5rem !default;
+$avatar-size: 4rem !default;
+$account-actions-max-height: 3rem !default;
 
 // padding & margin
 $lang-bar-margin: 0.5rem 0 -0.5rem !default;
+$account-bar-margin: 0 0 -0.5rem !default;
+$account-bar-padding: 1.5rem 0.5rem !default;
+
+// position
+$lang-list-top: 1.5rem;

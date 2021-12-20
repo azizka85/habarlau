@@ -24,6 +24,8 @@ export class MainLayout extends BaseLayout implements Page {
   protected headerIconElem: HTMLElement | null = null;
   protected headerIconBtn: HTMLElement | null = null;
 
+  protected signInUpElem: HTMLElement | null = null;
+
   protected list: HTMLElement | null = null;
   protected langList: HTMLElement | null = null;
 
@@ -68,6 +70,17 @@ export class MainLayout extends BaseLayout implements Page {
 
         this.headerIconBtn.addEventListener('click', event => navigateHandler(event, this.headerIconBtn as HTMLElement));
       }
+
+      const drawerAccountBar = this.drawerElem?.querySelector('.drawer-account-bar');
+
+      drawerAccountBar?.addEventListener(
+        'mouseenter',
+        () => this.drawerElem?.classList.add('drawer-hover')
+      );
+
+      this.signInUpElem = drawerAccountBar?.querySelector('[data-content="sign-in-up"]') || null;
+
+      this.signInUpElem?.addEventListener('click', event => navigateHandler(event, this.signInUpElem as HTMLElement));
 
       const drawerLangBar = this.drawerElem?.querySelector('.drawer-lang-bar');
 
@@ -213,6 +226,11 @@ export class MainLayout extends BaseLayout implements Page {
     } else {
       this.headerIconElem?.classList.add('drawer-header-icon-hide'); 
       this.drawerElem?.classList.remove('drawer-open');
+    }
+
+    if(this.signInUpElem) {
+      this.signInUpElem.textContent = window.tr('Sign In/Up');
+      this.signInUpElem.setAttribute('href', (lang === DEFAULT_LANGUAGE ? '' : `/${lang}`) +  '/sign-in');
     }
 
     if(this.langElem) {

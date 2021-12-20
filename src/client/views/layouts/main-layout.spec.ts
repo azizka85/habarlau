@@ -57,6 +57,8 @@ describe('MainLayout test', () => {
     expect(instance['headerIconElem']).toBeFalsy();
     expect(instance['headerIconBtn']).toBeFalsy();
 
+    expect(instance['signInUpElem']).toBeFalsy();
+
     expect(instance['list']).toBeFalsy();
     expect(instance['langList']).toBeFalsy();
 
@@ -125,6 +127,15 @@ describe('MainLayout test', () => {
             </a>
           </div>
           <div class="drawer-content">
+            <div class="drawer-account-bar">
+              <div class="drawer-account-bar-avatar">   
+                <svg class="drawer-account-bar-avatar-icon"></svg>
+              </div>
+              <div class="drawer-account-bar-actions">   
+                <br>
+                <a href="/${lang}/sign-in" data-content="sign-in-up">Sign In/Up</a>
+              </div>
+            </div>
             <div class="drawer-lang-bar">
               <img 
                 class="drawer-lang-bar-flag"
@@ -228,6 +239,12 @@ describe('MainLayout test', () => {
     expect(instance['headerIconBtn']?.getAttribute('data-button')).toEqual('header-navigation');
     expect(instance['headerIconBtn']?.getAttribute('href')).toEqual(`?test=${query.test}`);
 
+    expect(instance['signInUpElem']).toBeTruthy();
+    expect(instance['signInUpElem']).toBeInstanceOf(HTMLElement);
+    expect(instance['signInUpElem']?.getAttribute('data-content')).toEqual('sign-in-up');
+    expect(instance['signInUpElem']?.getAttribute('href')).toEqual(`/${lang}/sign-in`);
+    expect(instance['signInUpElem']?.textContent).toContain('Sign In/Up');
+
     expect(instance['list']).toBeTruthy();
     expect(instance['list']).toBeInstanceOf(HTMLElement);
     expect(instance['list']?.children.length).toEqual(3);
@@ -310,6 +327,15 @@ describe('MainLayout test', () => {
             ></a>
           </div>
           <div class="drawer-content">
+            <div class="drawer-account-bar">
+              <div class="drawer-account-bar-avatar">   
+                <svg class="drawer-account-bar-avatar-icon"></svg>
+              </div>
+              <div class="drawer-account-bar-actions">   
+                <br>
+                <a href="/en/sign-in" data-content="sign-in-up">Sign In/Up</a>
+              </div>
+            </div>
             <div class="drawer-lang-bar">
               <img 
                 class="drawer-lang-bar-flag"
@@ -462,6 +488,22 @@ describe('MainLayout test', () => {
     expect(instance['langList']?.children[1].getAttribute('href')).toEqual('/ru?test=123&main-layout-search=1&main-layout-navigation=1');
     expect(instance['langList']?.children[2].classList.contains('list-item-activated')).toBeTruthy();
     expect(instance['langList']?.children[2].getAttribute('href')).toEqual('/en?test=123&main-layout-search=1&main-layout-navigation=1');
+
+    instance['signInUpElem']?.dispatchEvent(new MouseEvent('click'));
+
+    expect(location.pathname).toEqual('/en/sign-in');
+
+    instance['langList']?.children[0].dispatchEvent(new MouseEvent('click'));
+
+    expect(location.pathname).toEqual('/kz');
+
+    instance['langList']?.children[1].dispatchEvent(new MouseEvent('click'));
+
+    expect(location.pathname).toEqual('/ru');
+
+    instance['langList']?.children[2].dispatchEvent(new MouseEvent('click'));
+
+    expect(location.pathname).toEqual('/en');
 
     instance['list']?.children[0].dispatchEvent(new MouseEvent('mouseenter'));
 

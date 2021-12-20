@@ -28,6 +28,35 @@
     width: 100%;
   }
 
+  &-open, &-hover {
+    .drawer-header {
+      color: color-contrast($primary);
+      background-color: $primary;
+    }
+
+    .drawer-account-bar {
+      background-color: $primary;
+
+      &-avatar {
+        width: variables.$avatar-size;
+        height: variables.$avatar-size;
+
+        &-icon {
+          width: variables.$avatar-size;
+          height: variables.$avatar-size;
+        }
+      }
+
+      &-actions {
+        max-height: variables.$account-actions-max-height;         
+        
+        a {
+          color: color-contrast($primary);
+        }
+      }
+    }    
+  }
+
   &-content {    
     height: 100vh;
     overflow-y: auto;
@@ -54,12 +83,59 @@
     }
   }
 
+  &-account-bar {
+    display: flex;
+    flex-direction: column;
+    margin: variables.$account-bar-margin;
+    padding: variables.$account-bar-padding;
+    overflow: hidden;
+    background-color: $body-bg;
+    transition: background-color 250ms linear;
+    
+    &-avatar {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: variables.$avatar-min-size;
+      height: variables.$avatar-min-size;
+      border-radius: 50%;      
+      background-color: $body-bg;
+      transition: 
+        width 250ms linear,
+        height 250ms linear;
+
+      &-icon {
+        opacity: 0.3;
+        fill: color-contrast($body-bg);
+        width: variables.$avatar-min-size;
+        height: variables.$avatar-min-size;
+        transition: 
+          width 250ms linear,
+          height 250ms linear;
+      }
+    }
+    
+    &-actions {
+      display: flex;
+      flex-direction: column; 
+      max-height: 0;             
+      transition: max-height 250ms linear;
+
+      a {
+        text-decoration: none;
+        font-weight: bold;
+        color: color-contrast($body-bg);
+        overflow: hidden;
+        transition: color 250ms linear;
+      }
+    }
+  }
+
   &-lang-bar {
     display: flex;
     align-items: center;
     height: list-variables.$line-height;
     margin: variables.$lang-bar-margin;
-    overflow: hidden;
     cursor: pointer;
 
     &-flag {
@@ -69,6 +145,7 @@
     }  
 
     label {
+      position: relative;
       cursor: pointer;
 
       input {
@@ -100,7 +177,7 @@
       .list {
         background-color: $body-bg;
         position: absolute;
-        top: app-bar-variables.$row-height + list-variables.$line-height - list-variables.$margin-vertical;
+        top: variables.$lang-list-top;
         z-index: app-bar-variables.$z-index + 3;
         max-height: 0;
         opacity: 0;
