@@ -32,6 +32,10 @@
     .drawer-header {
       color: color-contrast($primary);
       background-color: $primary;
+
+      &-icon {
+        fill: color-contrast($primary);
+      }
     }
 
     .drawer-account-bar {
@@ -68,6 +72,11 @@
     display: flex;
     align-items: center;
     justify-content: flex-end;
+    color: color-contrast($body-bg);
+    background-color: $body-bg;
+    transition: 
+      color 250ms linear,
+      background-color 250ms linear;
 
     &-icon {
       width: 2rem;
