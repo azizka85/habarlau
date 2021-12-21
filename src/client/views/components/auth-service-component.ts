@@ -5,8 +5,12 @@ import { Component, Page } from "../view";
 export class AuthServiceComponent implements Component {
   protected titleElem: HTMLElement | null = null;
 
+  protected googleBtn: HTMLElement | null = null;
+
   async init(page: Page, firstTime: boolean): Promise<void> {
     this.titleElem = page.elem?.querySelector('[data-title="auth-service"]') || null;
+
+    this.googleBtn = page.elem?.querySelector('[data-button="auth-service-google"]') || null;
   }
 
   async load(lang: string, page: router.Page, firstLoad: boolean): Promise<void> {

@@ -26,7 +26,12 @@ describe('SignInPage test', () => {
 					class="main-card__title main-card--justify mdc-typography--headline6"
 				>
 					Or use the service
-				</h6>						
+				</h6>				
+				<div>
+					<a href="#" class="btn btn-light" data-button="auth-service-google" title="Google">
+						<svg class="main-card-service-icon" viewBox="0 0 16 16"></svg>    
+					</a>
+				</div>		
 			</div>
 		`;
 
@@ -43,6 +48,11 @@ describe('SignInPage test', () => {
 		expect(component['titleElem']).toBeInstanceOf(HTMLElement);
 		expect(component['titleElem']?.getAttribute('data-title')).toEqual('auth-service');
 		expect(component['titleElem']?.textContent).toContain('Or use the service');
+
+		expect(component['googleBtn']).toBeTruthy();
+		expect(component['googleBtn']).toBeInstanceOf(HTMLElement);
+		expect(component['googleBtn']?.getAttribute('data-button')).toEqual('auth-service-google');
+		expect(component['googleBtn']?.title).toEqual('Google');
 
 		await SignUpPage.instance.load('ru', {
 			fragment: '',

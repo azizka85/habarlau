@@ -42,6 +42,12 @@ html, body {
 .main-card {
   max-width: 25rem;
   margin: 0.5rem auto 0;
+
+  &-service-icon {
+    width: 1.5rem;
+    height: 1.5rem;
+    fill: currentColor;
+  }
 }
 
 [data-button="scroll-top"] {

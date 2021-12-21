@@ -1,0 +1,1 @@
+var l=class{titleElem=null;googleBtn=null;async init(e,t){this.titleElem=e.elem?.querySelector('[data-title="auth-service"]')||null,this.googleBtn=e.elem?.querySelector('[data-button="auth-service-google"]')||null}async load(e,t,i){this.titleElem&&(this.titleElem.textContent=window.tr("Or use the service"))}};export{l as a};
