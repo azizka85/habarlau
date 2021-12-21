@@ -2,6 +2,7 @@ import * as router from '@azizka/router';
 
 export interface Listener {
   listen?(type: string, listener: EventListenerOrEventListenerObject): void;
+  unlisten?(type: string, listener: EventListenerOrEventListenerObject): void;
   performAction?(type: string, data: any): void;
 }
 

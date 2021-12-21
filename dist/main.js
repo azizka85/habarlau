@@ -251,7 +251,6 @@ try {
           </svg>
         </div>
         <div class="drawer-account-bar-actions">   
-          <br>
           <a href="/<%= data.lang %>/sign-in" data-content="sign-in-up"><%= helpers.tr('Sign In/Up') %></a>
         </div>
       </div>
@@ -277,6 +276,9 @@ try {
                 "
               />
             </svg>
+            <div class="drawer-lang-bar-current-progress spinner-border text-primary" role="status">
+              <span class="visually-hidden">Loading...</span>
+            </div>
           </div>
           <div class="list" data-list="lang">
             <a 
@@ -379,16 +381,6 @@ try {
   </main>
 </div>
 `;var su=ou.default.compile(ru);var cu={"main-layout":T0};function pu(a){return a?a.split(",").map(i=>i.trim()):[]}function lu(a){let e=[];for(let i of a)i in cu&&e.push({name:i,handler:cu[i]});return e}function la(a,e,i,n,t,r,o,s,p,c){p={...p},c={...c,tr:Gl[a]},o={...o,lang:a,rootLink:e};let l=t,u=r;if(s)for(let d of s){let m=d.handler(n,{lang:a,rootLink:e,data:o,helpers:c,partials:p,viewName:l,view:u});o=m.data,c=m.helpers,p=m.partials,u=m.view,l=d.name}return n.query.ajax||(l&&(p[l]=u),u=tu,o={lang:a,rootLink:e,version:i,content:l,contentData:o}),u({data:o,partials:p,helpers:c})}function T0(a,e){let i=su,n=e.lang,t=e.rootLink;e.partials[e.viewName]=e.view;let r={...e.helpers,toggleQueryParameter:Pl,changeLangPath:Rl},o=a.query["main-layout-navigation"]==="1",s=a.query["main-layout-search"]==="1";return{data:{lang:n,rootLink:t,navigation:o,search:s,url:a.originalUrl,query:a.query,languages:ii,content:e.viewName,contentData:e.data},helpers:r,partials:e.partials,view:i}}var du=ie(ze());var uu=`<div data-page="home-page">    
-  <div>
-    <button class="btn btn-primary">Home page</button>
-    <a class="btn btn-outline-secondary" href="<%= data.rootLink %>sign-in">
-      Sign In page
-    </a> 
-    <a class="btn btn-outline-dark" href="<%= data.rootLink %>sign-up">
-      Sign Up page
-    </a> 
-  </div>
-  <br>
   <div>
     Home page, time: <%= data.time %> 
   </div>

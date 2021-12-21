@@ -122,6 +122,7 @@
       transition: max-height 250ms linear;
 
       a {
+        margin-top: variables.$account-bar-action-margin-top;
         text-decoration: none;
         font-weight: bold;
         color: color-contrast($body-bg);
@@ -167,6 +168,23 @@
           margin-left: list-variables.$margin-horizontal;
           transform: rotate(0deg);
           transition: transform 200ms linear;
+        }
+
+        .drawer-lang-bar-current-progress {
+          width: 1rem;
+          height: 1rem;
+          margin-left: list-variables.$margin-horizontal;
+          display: none;
+        }
+
+        &-loading {
+          .drawer-lang-bar-current-icon {
+            display: none;
+          }
+
+          .drawer-lang-bar-current-progress {
+            display: block;
+          }
         }
       }
 

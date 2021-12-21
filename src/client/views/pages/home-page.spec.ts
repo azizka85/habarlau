@@ -93,11 +93,13 @@ describe('HomePage test', () => {
     const layoutInstance = MainLayout.instance;
     const pageInstance = HomePage.instance;
 
-    await pageInstance.init(null, true);
-    await layoutInstance.init(null, true);
-
     window.layouts['main-layout'] = layoutInstance;
     window.pages['home-page'] = pageInstance;
+
+    await pageInstance.init(null, true);
+    await layoutInstance.init(null, true);    
+    await layoutInstance.mount();
+    await pageInstance.mount();
 
     await layoutInstance.mount();
 

@@ -14,6 +14,7 @@ import { LocationMock } from '../../mocks/location-mock';
 import { HistoryMock } from '../../mocks/history-mock';
 
 import { toggleQueryParameter } from "../../../helpers";
+import { locales } from '../../../server/helpers/locale-helpers';
 
 describe('MainLayout test', () => {
   beforeEach(() => {
@@ -275,6 +276,9 @@ describe('MainLayout test', () => {
     const query = window.router.query;
 
     let lang = 'en';
+    
+    window.tr = locales[DEFAULT_LANGUAGE];
+
     const navigation = query['main-layout-navigation'] ? true : false;
 
     document.body.innerHTML = `
@@ -405,6 +409,7 @@ describe('MainLayout test', () => {
     const instance = MainLayout.instance;
 
     await instance.init(null, false);
+    await instance.mount();
     
     const objWindow = window as any;
 

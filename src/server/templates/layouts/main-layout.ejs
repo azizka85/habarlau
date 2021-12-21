@@ -100,7 +100,6 @@
           </svg>
         </div>
         <div class="drawer-account-bar-actions">   
-          <br>
           <a href="/<%= data.lang %>/sign-in" data-content="sign-in-up"><%= helpers.tr('Sign In/Up') %></a>
         </div>
       </div>
@@ -126,6 +125,9 @@
                 "
               />
             </svg>
+            <div class="drawer-lang-bar-current-progress spinner-border text-primary" role="status">
+              <span class="visually-hidden">Loading...</span>
+            </div>
           </div>
           <div class="list" data-list="lang">
             <a 
