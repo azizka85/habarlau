@@ -8,7 +8,7 @@ import { SignUpPage } from '../pages/sign-up-page';
 
 import { AuthServiceComponent } from "./auth-service-component";
 
-describe('SignInPage test', () => {
+describe('AuthServiceComponent test', () => {
 	beforeEach(() => {
 		const dom = new JSDOM();    
 
