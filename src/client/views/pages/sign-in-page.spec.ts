@@ -10,8 +10,6 @@ import { LocationMock } from '../../mocks/location-mock';
 import { HistoryMock } from '../../mocks/history-mock';
 import { fetchGetMock } from '../../mocks/request/fetch-get-mock';
 
-import { SignInPage } from "./sign-in-page";
-
 describe('SignInPage test', () => {
   beforeEach(() => {
     const dom = new JSDOM();    
@@ -31,6 +29,7 @@ describe('SignInPage test', () => {
     global.Event = (document.defaultView as Window & typeof globalThis).Event;
     global.CustomEvent = (document.defaultView as Window & typeof globalThis).CustomEvent;
 
+    global.Element = dom.window.Element;
     global.HTMLElement = dom.window.HTMLElement;
     global.HTMLInputElement = dom.window.HTMLInputElement;
 
@@ -40,7 +39,9 @@ describe('SignInPage test', () => {
     global.fetch = req => (fetchGetMock(req as string) as unknown) as Promise<Response>;
   });
 
-  test('Should get single instance of SignInPage', () => {
+  test('Should get single instance of SignInPage', async () => {
+    const { SignInPage } = await import("./sign-in-page");
+
     const instance = SignInPage.instance;
 
     expect(instance).toBeTruthy();
@@ -61,6 +62,8 @@ describe('SignInPage test', () => {
   });
 
   test('Should load content via fetch content data', async () => {
+    const { SignInPage } = await import("./sign-in-page");
+
     const pageInstance = SignInPage.instance;
 
     await pageInstance.init(null, false);

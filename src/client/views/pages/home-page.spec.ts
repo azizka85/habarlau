@@ -79,25 +79,17 @@ describe('HomePage test', () => {
   });
 
   test('Handlers should work correctly', async () => {   
-    document.body.innerHTML = `
-      <div data-layout="main-layout">
-        <div data-page="home-page">            
-          <div>
-            Home page, time: {{ data.time }}
-          </div>
-          <button class="btn btn-exited" data-button="scroll-top"></button>    
-        </div>
-      </div>
-    `;
-
     const layoutInstance = MainLayout.instance;
-    const pageInstance = HomePage.instance;
+    const pageInstance = HomePage.instance;      
 
+    const content = await pageInstance.init(null, false);
+
+    window.pages['home-page'] = pageInstance;    
+
+    await layoutInstance.init(content, false); 
+    
     window.layouts['main-layout'] = layoutInstance;
-    window.pages['home-page'] = pageInstance;
-
-    await pageInstance.init(null, true);
-    await layoutInstance.init(null, true);    
+    
     await layoutInstance.mount();
     await pageInstance.mount();
 
