@@ -111,7 +111,8 @@ describe('AuthServiceComponent test', () => {
 		const component = SignUpPage.instance['authService'];
 
 		component?.['googleBtn']?.dispatchEvent(new MouseEvent('click'));
-		
+
+		expect(component?.['dialogTitle']?.textContent).toContain(`Google - ${window.tr('Auth service')}`);
 		expect(component?.['dialogContent']?.src).toEqual('www.auth-service.com');		
 	});
 });
