@@ -10,6 +10,8 @@ import { LocationMock } from '../../mocks/location-mock';
 import { HistoryMock } from '../../mocks/history-mock';
 import { fetchGetMock } from '../../mocks/request/fetch-get-mock';
 
+import { SignInPage } from './sign-in-page';
+
 describe('SignInPage test', () => {
   beforeEach(() => {
     const dom = new JSDOM();    
@@ -40,8 +42,6 @@ describe('SignInPage test', () => {
   });
 
   test('Should get single instance of SignInPage', async () => {
-    const { SignInPage } = await import("./sign-in-page");
-
     const instance = SignInPage.instance;
 
     expect(instance).toBeTruthy();
@@ -62,8 +62,6 @@ describe('SignInPage test', () => {
   });
 
   test('Should load content via fetch content data', async () => {
-    const { SignInPage } = await import("./sign-in-page");
-
     const pageInstance = SignInPage.instance;
 
     await pageInstance.init(null, false);
