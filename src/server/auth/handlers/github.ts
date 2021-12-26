@@ -2,7 +2,11 @@ import express from 'express';
 
 import fetch from 'node-fetch';
 
+import { Session } from '../../../data/session';
+import { User } from '../../../data/user';
+
 import { getQueryParameters } from '../../../helpers';
+import { setAccessToken } from '../../helpers/auth-helpers';
 
 const githubAuthorizeUrl = 'https://github.com/login/oauth/authorize';
 const githubAccessTokenUrl = 'https://github.com/login/oauth/access_token';
@@ -14,10 +18,16 @@ export default {
       client_id: process.env.GITHUB_CLIENT_ID
     } as any;    
 
+    if(req.query.lang) {
+      params.state = req.query.lang;
+    }
+
     res.redirect(`${githubAuthorizeUrl}?${getQueryParameters(params)}`);
   },
 
   async callback(req: express.Request, res: express.Response) {
+    const lang = req.query.state || '';
+
     const params = new URLSearchParams();
 
     params.append('client_id', process.env.GITHUB_CLIENT_ID as string);
@@ -43,21 +53,24 @@ export default {
 
       const userData = await userResponse.json() as any;
 
-      const data = {
+      const data: User = {
         name: userData.name,
         email: userData.email,
         photo: userData.avatar_url,
       };
 
       if(req.session) {
-        req.session.oauthApp = 'github';
-        req.session.accessToken = responseData.access_token;
-        req.session.tokenType = responseData.token_type;
-        req.session.scope = responseData.scope;
-        req.session.user = data;
+        setAccessToken(
+          req.session as Session,
+          'github',
+          responseData.access_token,
+          responseData.token_type,
+          responseData.scope,
+          data
+        );
       }      
 
-      res.redirect('/');
+      res.redirect('/' + lang);
     } else {
       res.statusCode = 401;
       res.send(responseData);

@@ -152,8 +152,11 @@ export function mainLayoutHandler(req: Request, input: LayoutHandlerInput): Layo
   const navigation = req.query['main-layout-navigation'] === '1';
   const search = req.query['main-layout-search'] === '1';
 
+  const user = req.session?.user;
+
   const data = {
     lang,
+    user,
     rootLink,
     navigation,
     search,

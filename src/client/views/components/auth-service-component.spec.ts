@@ -57,6 +57,11 @@ describe('AuthServiceComponent test', () => {
 		expect(component?.['titleElem']?.getAttribute('data-title')).toEqual('auth-service');
 		expect(component?.['titleElem']?.textContent).toContain('Or use the service');		
 
+		expect(component?.['googleBtn']).toBeTruthy();
+		expect(component?.['googleBtn']).toBeInstanceOf(HTMLElement);
+		expect(component?.['googleBtn']?.getAttribute('data-button')).toEqual('auth-service-google');
+		expect(component?.['googleBtn']?.title).toEqual('Google');		
+
 		await SignUpPage.instance.load('ru', {
 			fragment: '',
 			match: [],
