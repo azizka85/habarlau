@@ -63,11 +63,11 @@ export async function loadContent(
 export async function mount(elem: HTMLElement | null) {
   await sleep(10);
 
-  elem?.classList.remove('page--unmount');
+  elem?.classList.remove('page-unmount');
 }
 
 export async function unmount(elem: HTMLElement | null) {
-  elem?.classList.add('page--unmount');
+  elem?.classList.add('page-unmount');
 
   await sleep(250);
 }

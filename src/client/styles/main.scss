@@ -36,7 +36,7 @@ html, body {
   opacity: 1;
   transition: opacity 250ms linear;
 
-  &.page--unmount {
+  &.page-unmount {
     opacity: 0;
   }
 }

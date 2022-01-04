@@ -16,7 +16,7 @@
     z-index 250ms linear,
     opacity 250ms linear;
 
-  &--open {
+  &-open {
     z-index: variables.$front-z-index;
     opacity: 1;
   }

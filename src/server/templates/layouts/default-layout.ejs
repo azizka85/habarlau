@@ -11,7 +11,7 @@
 <body>
   <div class="splash">
     <div class="loader" data-page="loader-page">
-      <div class="loader__container">
+      <div class="loader-container">
         <img src="/favicon.png">
         <div class="spinner-border text-primary" role="status">
           <span class="visually-hidden">Loading...</span>
@@ -22,7 +22,7 @@
   <script>
     const splashElem = document.querySelector('.splash');
 
-    splashElem?.classList.add('splash--open');
+    splashElem?.classList.add('splash-open');
   </script>
   <% if(data.content) { %> 
     <%- 
