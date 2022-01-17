@@ -93,8 +93,6 @@ describe('HomePage test', () => {
     await layoutInstance.mount();
     await pageInstance.mount();
 
-    await layoutInstance.mount();
-
     await pageInstance.load(DEFAULT_LANGUAGE, {
       fragment: '',
       query: {},
